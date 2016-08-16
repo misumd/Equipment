@@ -64,5 +64,5 @@ public class Equipment {
 		return "Equipment [id= " + id + ", name= " + name + ", description= " + description + ", tag= " + tag + ", price= "
 				+ price + ", inStock= " + inStock + "]";
 	}
-
+//this text was added by other user
 }
