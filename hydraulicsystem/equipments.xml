@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<userXmlHelper>
+    <equipmentList>
+        <description>Description: 0</description>
+        <inStock>true</inStock>
+        <name>Name: 0</name>
+        <price>0.0</price>
+        <tag>Tag: 0</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 1</description>
+        <inStock>true</inStock>
+        <name>Name: 1</name>
+        <price>1.0</price>
+        <tag>Tag: 1</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 2</description>
+        <inStock>true</inStock>
+        <name>Name: 2</name>
+        <price>2.0</price>
+        <tag>Tag: 2</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 3</description>
+        <inStock>true</inStock>
+        <name>Name: 3</name>
+        <price>3.0</price>
+        <tag>Tag: 3</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 4</description>
+        <inStock>true</inStock>
+        <name>Name: 4</name>
+        <price>4.0</price>
+        <tag>Tag: 4</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 5</description>
+        <inStock>true</inStock>
+        <name>Name: 5</name>
+        <price>5.0</price>
+        <tag>Tag: 5</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 6</description>
+        <inStock>true</inStock>
+        <name>Name: 6</name>
+        <price>6.0</price>
+        <tag>Tag: 6</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 7</description>
+        <inStock>true</inStock>
+        <name>Name: 7</name>
+        <price>7.0</price>
+        <tag>Tag: 7</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 8</description>
+        <inStock>true</inStock>
+        <name>Name: 8</name>
+        <price>8.0</price>
+        <tag>Tag: 8</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 9</description>
+        <inStock>true</inStock>
+        <name>Name: 9</name>
+        <price>9.0</price>
+        <tag>Tag: 9</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 10</description>
+        <inStock>true</inStock>
+        <name>Name: 10</name>
+        <price>10.0</price>
+        <tag>Tag: 10</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 11</description>
+        <inStock>true</inStock>
+        <name>Name: 11</name>
+        <price>11.0</price>
+        <tag>Tag: 11</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 12</description>
+        <inStock>true</inStock>
+        <name>Name: 12</name>
+        <price>12.0</price>
+        <tag>Tag: 12</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 13</description>
+        <inStock>true</inStock>
+        <name>Name: 13</name>
+        <price>13.0</price>
+        <tag>Tag: 13</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 14</description>
+        <inStock>true</inStock>
+        <name>Name: 14</name>
+        <price>14.0</price>
+        <tag>Tag: 14</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 15</description>
+        <inStock>true</inStock>
+        <name>Name: 15</name>
+        <price>15.0</price>
+        <tag>Tag: 15</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 16</description>
+        <inStock>true</inStock>
+        <name>Name: 16</name>
+        <price>16.0</price>
+        <tag>Tag: 16</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 17</description>
+        <inStock>true</inStock>
+        <name>Name: 17</name>
+        <price>17.0</price>
+        <tag>Tag: 17</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 18</description>
+        <inStock>true</inStock>
+        <name>Name: 18</name>
+        <price>18.0</price>
+        <tag>Tag: 18</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 19</description>
+        <inStock>true</inStock>
+        <name>Name: 19</name>
+        <price>19.0</price>
+        <tag>Tag: 19</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 20</description>
+        <inStock>true</inStock>
+        <name>Name: 20</name>
+        <price>20.0</price>
+        <tag>Tag: 20</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 21</description>
+        <inStock>true</inStock>
+        <name>Name: 21</name>
+        <price>21.0</price>
+        <tag>Tag: 21</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 22</description>
+        <inStock>true</inStock>
+        <name>Name: 22</name>
+        <price>22.0</price>
+        <tag>Tag: 22</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 23</description>
+        <inStock>true</inStock>
+        <name>Name: 23</name>
+        <price>23.0</price>
+        <tag>Tag: 23</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 24</description>
+        <inStock>true</inStock>
+        <name>Name: 24</name>
+        <price>24.0</price>
+        <tag>Tag: 24</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 25</description>
+        <inStock>true</inStock>
+        <name>Name: 25</name>
+        <price>25.0</price>
+        <tag>Tag: 25</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 26</description>
+        <inStock>true</inStock>
+        <name>Name: 26</name>
+        <price>26.0</price>
+        <tag>Tag: 26</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 27</description>
+        <inStock>true</inStock>
+        <name>Name: 27</name>
+        <price>27.0</price>
+        <tag>Tag: 27</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 28</description>
+        <inStock>true</inStock>
+        <name>Name: 28</name>
+        <price>28.0</price>
+        <tag>Tag: 28</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 29</description>
+        <inStock>true</inStock>
+        <name>Name: 29</name>
+        <price>29.0</price>
+        <tag>Tag: 29</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 30</description>
+        <inStock>true</inStock>
+        <name>Name: 30</name>
+        <price>30.0</price>
+        <tag>Tag: 30</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 31</description>
+        <inStock>true</inStock>
+        <name>Name: 31</name>
+        <price>31.0</price>
+        <tag>Tag: 31</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 32</description>
+        <inStock>true</inStock>
+        <name>Name: 32</name>
+        <price>32.0</price>
+        <tag>Tag: 32</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 33</description>
+        <inStock>true</inStock>
+        <name>Name: 33</name>
+        <price>33.0</price>
+        <tag>Tag: 33</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 34</description>
+        <inStock>true</inStock>
+        <name>Name: 34</name>
+        <price>34.0</price>
+        <tag>Tag: 34</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 35</description>
+        <inStock>true</inStock>
+        <name>Name: 35</name>
+        <price>35.0</price>
+        <tag>Tag: 35</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 36</description>
+        <inStock>true</inStock>
+        <name>Name: 36</name>
+        <price>36.0</price>
+        <tag>Tag: 36</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 37</description>
+        <inStock>true</inStock>
+        <name>Name: 37</name>
+        <price>37.0</price>
+        <tag>Tag: 37</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 38</description>
+        <inStock>true</inStock>
+        <name>Name: 38</name>
+        <price>38.0</price>
+        <tag>Tag: 38</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 39</description>
+        <inStock>true</inStock>
+        <name>Name: 39</name>
+        <price>39.0</price>
+        <tag>Tag: 39</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 40</description>
+        <inStock>true</inStock>
+        <name>Name: 40</name>
+        <price>40.0</price>
+        <tag>Tag: 40</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 41</description>
+        <inStock>true</inStock>
+        <name>Name: 41</name>
+        <price>41.0</price>
+        <tag>Tag: 41</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 42</description>
+        <inStock>true</inStock>
+        <name>Name: 42</name>
+        <price>42.0</price>
+        <tag>Tag: 42</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 43</description>
+        <inStock>true</inStock>
+        <name>Name: 43</name>
+        <price>43.0</price>
+        <tag>Tag: 43</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 44</description>
+        <inStock>true</inStock>
+        <name>Name: 44</name>
+        <price>44.0</price>
+        <tag>Tag: 44</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 45</description>
+        <inStock>true</inStock>
+        <name>Name: 45</name>
+        <price>45.0</price>
+        <tag>Tag: 45</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 46</description>
+        <inStock>true</inStock>
+        <name>Name: 46</name>
+        <price>46.0</price>
+        <tag>Tag: 46</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 47</description>
+        <inStock>true</inStock>
+        <name>Name: 47</name>
+        <price>47.0</price>
+        <tag>Tag: 47</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 48</description>
+        <inStock>true</inStock>
+        <name>Name: 48</name>
+        <price>48.0</price>
+        <tag>Tag: 48</tag>
+    </equipmentList>
+    <equipmentList>
+        <description>Description: 49</description>
+        <inStock>true</inStock>
+        <name>Name: 49</name>
+        <price>49.0</price>
+        <tag>Tag: 49</tag>
+    </equipmentList>
+</userXmlHelper>
