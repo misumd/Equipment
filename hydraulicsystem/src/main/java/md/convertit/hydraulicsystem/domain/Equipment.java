@@ -1,5 +1,9 @@
 package md.convertit.hydraulicsystem.domain;
-
+/**
+ * This class represents a Course object
+ * @author Utilizator
+ *
+ */
 public class Equipment {
 	
 	private Long id;
