@@ -21,7 +21,7 @@ public class EquipmentDaoImplTest {
 		equipment.setName("testEquipment");
 		equipment.setDescription("testDescription");
 		equipment.setTag("testTag");
-		equipment.setPrice(50);
+		equipment.setPrice(5);;
 		equipment.setInStock(true);
 	
 		
