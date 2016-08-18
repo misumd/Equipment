@@ -13,10 +13,13 @@ public class ConnectionUtil {
 
 	private static Connection connection;
 
+//	private static String host = "jdbc:mysql://localhost:3306/mihai";
+//	private static String dbUserName = "misu";
+//	private static String dbPassword = "Juwelea2020";
+//	
 	private static String host = "jdbc:mysql://localhost:3306/mihai";
-	private static String dbUserName = "misu";
-	private static String dbPassword = "Juwelea2020";
-	
+	private static String dbUserName = "root";
+	private static String dbPassword = "convertit";
 	static {
 		try {
 			// incarcam driver pentru Mysql
