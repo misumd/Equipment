@@ -60,7 +60,7 @@ public class EquipmentDaoImplTest {
 	@Test
 	public void testDelete(){
 		
-		final Long Equipment_ID = 4L;
+		final Long Equipment_ID = 7L;
 		boolean result = dao.delete(Equipment_ID);
 		Assert.assertTrue(result);
 	}

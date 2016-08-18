@@ -25,7 +25,7 @@ public class EquipmentDaoImpl implements EquipmentDao {
 
 		try {
 			conn = ConnectionUtil.getConnection();
-			String sql = "INSERT INTO `mihai`.`equipment_data` (`name`, `description`, `tag`, `price`, `in_stock`) VALUES (?, ?, ?, '?', '?');";
+			String sql = "INSERT INTO `mihai`.`equipment_data` (`name`, `description`, `tag`, `price`, `in_stock`) VALUES (?, ?, ?, ?, ?);";
 			// obtin PreparedStatement de la connection
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, equipment.getName());
@@ -59,8 +59,8 @@ public class EquipmentDaoImpl implements EquipmentDao {
 				String equipmentname = set.getString("name");
 				String description = set.getString("description");
 				String tag = set.getString("tag");
-				double price = set.getDouble(3);
-				boolean inStock = set.getBoolean(0);
+				double price = set.getDouble("price");
+				boolean inStock = set.getBoolean("in_stock");
 				// cream un obiect de tip User in care vom seta valorile de mai
 				// sus
 				Equipment equipment = new Equipment();
@@ -86,19 +86,60 @@ public class EquipmentDaoImpl implements EquipmentDao {
 
 	@Override
 	public boolean update(Equipment newEquipment, Long id) {
-		// TODO Auto-generated method stub
+		try {
+			conn = ConnectionUtil.getConnection();
+			String sql = "UPDATE `mihai`.`equipment_data` SET `name`=?, `description`=?, `tag`=?, `price`=?, `in_stock`=? WHERE `id`=?;";
+			// obtin PreparedStatement de la connection
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, newEquipment.getName());
+			ps.setString(2, newEquipment.getDescription());
+			ps.setString(3, newEquipment.getTag());
+			ps.setDouble(4, newEquipment.getPrice());
+			ps.setBoolean(5, newEquipment.isInStock());
+			ps.setLong(6, id);
+			int affectedRows = ps.executeUpdate();
+			log.info(String.format("Update object, total affected rows: %d", affectedRows));
+			return true;
+		} catch (SQLException e) {
+			// e.printStackTrace();
+			log.severe(String.format("Exception: %s", e.getMessage()));
+		}
+		
 		return false;
 	}
 
 	@Override
 	public boolean delete(Long id) {
-		// TODO Auto-generated method stub
+		try {
+			conn = ConnectionUtil.getConnection();
+			String sql = "DELETE FROM `equipment_data` WHERE `id`=?;";
+			// obtin PreparedStatement de la connection
+			ps = conn.prepareStatement(sql);
+			ps.setLong(1, id);
+			ps.executeUpdate();
+			log.info(String.format("Object with id : %d was deleted", id));
+			return true;
+		} catch (SQLException e) {
+			log.severe(String.format("Exception: %s", e.getMessage()));
+		}
 		return false;
 	}
 
 	@Override
 	public long count() {
-		// TODO Auto-generated method stub
+		try {
+			conn = ConnectionUtil.getConnection();
+			String sql = "SELECT COUNT(*) FROM `mihai`";
+			ps = conn.prepareStatement(sql);
+			ResultSet set = ps.executeQuery();
+			if(set != null){
+				if(set.next()){
+					return set.getLong(1);
+				}
+			}
+		} catch (SQLException e) {
+			log.severe(String.format("Exception: %s", e.getMessage()));
+		}
 		return 0;
 	}
 
