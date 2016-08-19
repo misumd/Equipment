@@ -25,7 +25,7 @@ public class EquipmentDaoImpl implements EquipmentDao {
 
 		try {
 			conn = ConnectionUtil.getConnection();
-			String sql = "INSERT INTO `mihai`.`equipment_data` (`name`, `description`, `tag`, `price`, `in_stock`) VALUES (?, ?, ?, ?, ?);";
+		String sql = "INSERT INTO `mihai`.`equipment_data` (`name`, `description`, `tag`, `price`, `in_stock`) VALUES (?, ?, ?, ?, ?);";
 			// obtin PreparedStatement de la connection
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, equipment.getName());
