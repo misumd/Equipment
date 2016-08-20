@@ -1,20 +1,27 @@
 package md.convertit.hydraulicsystem.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.text.NumberFormat;
 import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -43,7 +50,7 @@ public class TableFrame extends JFrame {
 	private JTextField descriptionTextField;
 	private JTextField tagTextField;
 	private JFormattedTextField priceTextField;
-	private JTextField stockTextField;
+	private JCheckBox stockCheckBox;
 	
 	private JButton saveButton;
 	private JButton deleteButton;
@@ -58,7 +65,7 @@ public class TableFrame extends JFrame {
 	public TableFrame() throws HeadlessException {
 		super();
 		setTitle("Equipment Catalog");
-		setSize(800, 500);
+		setSize(1000, 500);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		// init main panel with BorderLayout
@@ -67,7 +74,7 @@ public class TableFrame extends JFrame {
 		getContentPane().add(mainPanel);
 
 		// frame set minim size
-		setMinimumSize(new Dimension(800, 200));
+		setMinimumSize(new Dimension(1000, 200));
 	}
 
 	/**
@@ -81,6 +88,10 @@ public class TableFrame extends JFrame {
 		addCenterPanel();
 //		// add bottom panel
 		addBottomPanel();
+		
+		addLefttPanel();
+		
+		addMenuBar();
 //		// add action listeners
 		addActionListeners();
 //		// set visible
@@ -90,39 +101,100 @@ public class TableFrame extends JFrame {
 	
 	}
 
+	private void addMenuBar() {
+		JMenuBar menubar = new JMenuBar();
+
+		JMenu fileMenu = new JMenu("File");
+		fileMenu.setMnemonic(KeyEvent.VK_F1);
+		JMenu infoMenu = new JMenu("Info");
+		infoMenu.setMnemonic(KeyEvent.VK_F2);
+
+		JMenuItem addMenuItem = new JMenuItem("Add");
+		addMenuItem.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				saveEquipment();
+						
+			}
+		});
+
+		fileMenu.add(addMenuItem);
+		
+		JMenuItem clearMenuItem = new JMenuItem("Clear");
+		clearMenuItem.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				clearEquipment();
+				
+			}
+
+			
+		});
+		fileMenu.add(clearMenuItem);
+		menubar.add(fileMenu);
+		menubar.add(infoMenu);
+		this.setJMenuBar(menubar);
+	}
+	
+	private void saveEquipment() {
+		// validate fields to not be empty
+		boolean valid = validateFields();			
+		if (valid) { // VALID
+			// extract our UserTableModel from table
+			Equipment equipment = new Equipment();
+			equipment.setName(nameTextField.getText().trim());
+			equipment.setDescription(descriptionTextField.getText().trim());
+			equipment.setTag(tagTextField.getText().trim());
+			equipment.setPrice(new Double(priceTextField.getText()));
+			equipment.setInStock(stockCheckBox.isSelected());
+		
+			
+			
+			SqlEquipmentTableModel tableModel = (SqlEquipmentTableModel) table.getModel();
+			
+			// add user to tableModel
+			tableModel.addEquipment(equipment);
+			
+			// clear fields
+			nameTextField.setText("");
+			descriptionTextField.setText("");
+			tagTextField.setText("");
+			priceTextField.setValue(0);
+			stockCheckBox.isSelected();
+		} else { // INVALID
+			JOptionPane.showMessageDialog(TableFrame.this, 
+					"Please check your fields!", "Validation Error", 
+					JOptionPane.WARNING_MESSAGE);
+		}
+	}
+	private void clearEquipment() {
+
+		// obtain table selected row
+		int row = table.getSelectedRow();
+		// check if row value is different from -1  (no row selected)
+		if(row != -1){
+			// extract our UserTableModel from table
+			SqlEquipmentTableModel tableModel = (SqlEquipmentTableModel) table.getModel();
+			// obtain user from table model from selected row
+			Equipment equipment = tableModel.getEquipment(row);
+			// delete a user from table model
+			tableModel.removeUser( equipment.getId().intValue());
+		}else {
+			JOptionPane.showMessageDialog(TableFrame.this, 
+					"Please select a row from table!", "No selected row", 
+					JOptionPane.WARNING_MESSAGE); 
+		}
+	
+		
+	}
 	private void addActionListeners() {
-saveButton.addActionListener(new ActionListener() {
+		saveButton.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				// validate fields to not be empty
-				boolean valid = validateFields();			
-				if (valid) { // VALID
-					// extract our UserTableModel from table
-					Equipment equipment = new Equipment();
-					equipment.setName(nameTextField.getText().trim());
-					equipment.setDescription(descriptionTextField.getText().trim());
-					equipment.setTag(tagTextField.getText().trim());
-					//equipment.setPrice(priceTextField.ge;
-					//equipment.setInStock(stockTextField.getText().trim());
-				
-					
-					
-					SqlEquipmentTableModel tableModel = (SqlEquipmentTableModel) table.getModel();
-					
-					// add user to tableModel
-					tableModel.addEquipment(equipment);
-					
-					// clear fields
-					nameTextField.setText("");
-					descriptionTextField.setText("");
-					tagTextField.setText("");
-					priceTextField.setValue(new Double(newPrice));;
-					stockTextField.setEditable(valid);
-				} else { // INVALID
-					JOptionPane.showMessageDialog(TableFrame.this, 
-							"Please check your fields!", "Validation Error", 
-							JOptionPane.WARNING_MESSAGE);
-				}
+				saveEquipment();
 			}
 		});
 		
@@ -130,21 +202,7 @@ saveButton.addActionListener(new ActionListener() {
 			
 			
 			public void actionPerformed(ActionEvent e) {
-				// obtain table selected row
-				int row = table.getSelectedRow();
-				// check if row value is different from -1  (no row selected)
-				if(row != -1){
-					// extract our UserTableModel from table
-					SqlEquipmentTableModel tableModel = (SqlEquipmentTableModel) table.getModel();
-					// obtain user from table model from selected row
-					Equipment equipment = tableModel.getEquipment(row);
-					// delete a user from table model
-					tableModel.removeUser( equipment.getId().intValue());
-				}else {
-					JOptionPane.showMessageDialog(TableFrame.this, 
-							"Please select a row from table!", "No selected row", 
-							JOptionPane.WARNING_MESSAGE); 
-				}
+				clearEquipment();
 			}
 		});
 
@@ -246,7 +304,19 @@ saveButton.addActionListener(new ActionListener() {
 		JPanel panel = new JPanel();
 		// init FlowLayout on LEFT
 		
-		BoxLayout layout = new BoxLayout(panel, BoxLayout.Y_AXIS);
+		FlowLayout layout = new FlowLayout(){
+
+			@Override
+			public Dimension preferredLayoutSize(Container target) {
+				Dimension dim = super.preferredLayoutSize(target);
+				dim.width = 130;
+				// TODO Auto-generated method stub
+				return dim;
+			}
+			
+		};
+		layout.setVgap(20);
+		
 		//FlowLayout layout = new FlowLayout(FlowLayout.RIGHT);
 		// set layout to panel
 		
@@ -265,7 +335,7 @@ saveButton.addActionListener(new ActionListener() {
 		panel.add(saveButton);
 		panel.add(exportJsonButton);
 		panel.add(exportXmlButton);
-
+		
 		// add panel to mainPanel
 		mainPanel.add(panel, BorderLayout.EAST);
 		
@@ -316,12 +386,14 @@ saveButton.addActionListener(new ActionListener() {
 		panel.add(tagTextField);
 		
 		panel.add(new JLabel("Price: "));
-		priceTextField = new JFormattedTextField();
+		priceTextField = new JFormattedTextField(new Float(0.0));
+		priceTextField.setMinimumSize(priceTextField.getPreferredSize());
+		priceTextField.setColumns(10);
 		panel.add(priceTextField);
 		
 		panel.add(new JLabel("Is_inStock: "));
-		stockTextField = new JTextField(10);
-		panel.add(stockTextField);
+		stockCheckBox = new JCheckBox();
+		panel.add(stockCheckBox);
 
 		
 		//newButton = new JButton("New");
@@ -342,5 +414,39 @@ saveButton.addActionListener(new ActionListener() {
 			return false;
 		}
 		return true;
+	}
+	private void addLefttPanel() {
+		JPanel panel1 = new JPanel();
+		// init FlowLayout on LEFT
+		
+		FlowLayout layout1 = new FlowLayout(){
+
+			@Override
+			public Dimension preferredLayoutSize(Container target) {
+				Dimension dim = super.preferredLayoutSize(target);
+				dim.width = 130;
+				// TODO Auto-generated method stub
+				return dim;
+			}
+			
+		};
+		//layout1.setVgap(20);
+		
+		//FlowLayout layout = new FlowLayout(FlowLayout.RIGHT);
+		// set layout to panel
+		
+		//panel1.setLayout(layout1);
+		
+		
+		// set border
+		panel1.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
+panel1.add(new JButton("12111"));
+
+		// init buttons and add to panel
+		
+		
+		// add panel to mainPanel
+		mainPanel.add(panel1, BorderLayout.WEST);
+		
 	}
 }
