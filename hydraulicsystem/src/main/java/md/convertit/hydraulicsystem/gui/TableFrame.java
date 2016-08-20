@@ -12,6 +12,7 @@ import javax.swing.BoxLayout;
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -35,12 +36,13 @@ import md.convertit.hydraulicsystem.services.impl.XmlFileService;
 import md.convertit.hydraulicsystem.util.FileUtil;
 
 public class TableFrame extends JFrame {
+	private double newPrice = 1000; 
 	
 	private JPanel mainPanel;
 	private JTextField nameTextField;
 	private JTextField descriptionTextField;
 	private JTextField tagTextField;
-	private JTextField priceTextField;
+	private JFormattedTextField priceTextField;
 	private JTextField stockTextField;
 	
 	private JButton saveButton;
@@ -100,9 +102,9 @@ saveButton.addActionListener(new ActionListener() {
 					equipment.setName(nameTextField.getText().trim());
 					equipment.setDescription(descriptionTextField.getText().trim());
 					equipment.setTag(tagTextField.getText().trim());
-					equipment.setPrice(priceTextField.getText().trim());
-					equipment.setInStock(stockTextField.getText().trim());
-					
+					//equipment.setPrice(priceTextField.ge;
+					//equipment.setInStock(stockTextField.getText().trim());
+				
 					
 					
 					SqlEquipmentTableModel tableModel = (SqlEquipmentTableModel) table.getModel();
@@ -114,7 +116,7 @@ saveButton.addActionListener(new ActionListener() {
 					nameTextField.setText("");
 					descriptionTextField.setText("");
 					tagTextField.setText("");
-					priceTextField.setText("");
+					priceTextField.setValue(new Double(newPrice));;
 					stockTextField.setEditable(valid);
 				} else { // INVALID
 					JOptionPane.showMessageDialog(TableFrame.this, 
@@ -314,7 +316,7 @@ saveButton.addActionListener(new ActionListener() {
 		panel.add(tagTextField);
 		
 		panel.add(new JLabel("Price: "));
-		priceTextField = new JTextField(10);
+		priceTextField = new JFormattedTextField();
 		panel.add(priceTextField);
 		
 		panel.add(new JLabel("Is_inStock: "));
