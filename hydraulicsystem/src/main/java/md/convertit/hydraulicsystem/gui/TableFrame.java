@@ -74,11 +74,12 @@ public class TableFrame extends JFrame {
 	
 	private JButton saveButton;
 	private JButton deleteButton;
-	//private JButton editButton;
+	private JButton editButton;
 	private JButton exportJsonButton;
 	private JButton exportXmlButton;
 	private JTable table;
 	private FileService fileService;
+	public ImageIcon myImage;
 
 	private Component ImageTest; 
 	
@@ -230,6 +231,16 @@ public class TableFrame extends JFrame {
 			}
 		});
 
+		editButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				EditFrame editFrame = new EditFrame();
+				editFrame.start();
+				
+			}
+		});
+		
 //		showButton.addActionListener(new ActionListener() {
 //			
 //		
@@ -339,7 +350,7 @@ public class TableFrame extends JFrame {
 			}
 			
 		};
-		layout.setVgap(20);
+		layout.setVgap(40);
 		
 		//FlowLayout layout = new FlowLayout(FlowLayout.RIGHT);
 		// set layout to panel
@@ -351,6 +362,7 @@ public class TableFrame extends JFrame {
 		panel.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
 
 		// init buttons and add to panel
+		editButton = new JButton("Edit row");
 		deleteButton = new JButton("Delete");
 		saveButton = new JButton("Save");
 		exportJsonButton = new JButton("Export to JSON");
@@ -359,7 +371,7 @@ public class TableFrame extends JFrame {
 		panel.add(saveButton);
 		panel.add(exportJsonButton);
 		panel.add(exportXmlButton);
-		
+		panel.add(editButton);
 		// add panel to mainPanel
 		mainPanel.add(panel, BorderLayout.EAST);
 		
@@ -442,7 +454,7 @@ public class TableFrame extends JFrame {
 	private SqlEquipmentTableModel tableModel1 = new SqlEquipmentTableModel();;
 	public String pathDirectory() {
 		
-		Equipment equipment = tableModel1.getEquipment(2);
+		Equipment equipment = tableModel1.getEquipment(0);
 		
 			// equipment.getPath_symbols();
 		
@@ -489,13 +501,14 @@ public class TableFrame extends JFrame {
 		 	
 		 	
 		  String path1 = (pathInfo1);
-	        ImagePanel panel3 = new ImagePanel( new ImageIcon(path1).getImage());
+		  myImage=new ImageIcon(path1);
+	        ImagePanel panel3 = new ImagePanel(myImage.getImage());
 
-	        JFrame frame = new JFrame();
-	        frame.getContentPane().add(panel3);
-	        frame.pack();
-	        frame.setVisible(true);
-	        
+//	        JFrame frame = new JFrame();
+//	        frame.getContentPane().add(panel3);
+//	        frame.pack();
+//	        frame.setVisible(true);
+//	        
 	       // ImageIcon icon = createImage("images/middle.jpeg");
 			//JTextField pathField = new JTextField(pathInfo1);
 			//panel4.add(pathField);
@@ -508,11 +521,6 @@ public class TableFrame extends JFrame {
 			//JLabel label2 = new JLabel("Text-Only Label");
 			//JLabel label3 = new JLabel(icon);
 			
-			JButton addSymbol = new JButton("Add symbol");
-			panel4.add(addSymbol);
-			
-			JButton saveSymbol = new JButton("Save symbol");
-			panel4.add(saveSymbol);
 			panel4.add(new JLabel("Directory: "));
 			JTextField pathTextField = new JTextField(path1);
 			panel4.add(pathTextField);
