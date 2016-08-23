@@ -23,6 +23,8 @@ public class EquipmentDaoImplTest {
 		equipment.setTag("testTag");
 		equipment.setPrice(5);;
 		equipment.setInStock(true);
+		equipment.setPath_symbols("path_local disk E");
+		
 	
 		
 		boolean result = dao.save(equipment);
@@ -51,6 +53,7 @@ public class EquipmentDaoImplTest {
 		newEquipment.setTag("new_tag");
 		newEquipment.setPrice(70);
 		newEquipment.setInStock(true);
+		newEquipment.setPath_symbols("new path symbol");
 		
 		
 		boolean result =dao.update(newEquipment, Equipment_ID);

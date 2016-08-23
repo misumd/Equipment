@@ -17,7 +17,7 @@ private static final long serialVersionUID = -6649486573625737660L;
 	// store our users in memory
 	private List<Equipment> equipments = new ArrayList<>();
 	// store column names
-	private String[] columnNames = {"ID", "name", "description", "tag", "price", "in_stock"};
+	private String[] columnNames = {"ID", "name", "description", "tag", "price", "in_stock", "path_symbols"};
 		
 	public SqlEquipmentTableModel() {
 		super();
@@ -53,8 +53,10 @@ private static final long serialVersionUID = -6649486573625737660L;
 		} else if(column == 4){
 			return equipment.getPrice();			
 		} else if(column == 5){
-			return equipment.isInStock();
+			return equipment.isInStock();			
 			
+		} else if(column ==6){
+			return equipment.getPath_symbols();
 		}
 		return "no data";
 	}

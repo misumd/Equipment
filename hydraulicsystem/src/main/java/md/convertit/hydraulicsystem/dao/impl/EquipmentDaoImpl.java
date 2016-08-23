@@ -25,7 +25,7 @@ public class EquipmentDaoImpl implements EquipmentDao {
 
 		try {
 			conn = ConnectionUtil.getConnection();
-		String sql = "INSERT INTO `mihai`.`equipment_data` (`name`, `description`, `tag`, `price`, `in_stock`) VALUES (?, ?, ?, ?, ?);";
+		String sql = "INSERT INTO `mihai`.`equipment_data` (`name`, `description`, `tag`, `price`, `in_stock`, `path_symbols` ) VALUES (?, ?, ?, ?, ?,?);";
 			// obtin PreparedStatement de la connection
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, equipment.getName());
@@ -33,6 +33,7 @@ public class EquipmentDaoImpl implements EquipmentDao {
 			ps.setString(3, equipment.getTag());
 			ps.setDouble(4, equipment.getPrice());
 			ps.setBoolean(5, equipment.isInStock());
+			ps.setString(6, equipment.getPath_symbols());
 
 			int affectedRows = ps.executeUpdate();
 			log.info(String.format("Saved object, total affected rows: %d", affectedRows));
@@ -61,6 +62,7 @@ public class EquipmentDaoImpl implements EquipmentDao {
 				String tag = set.getString("tag");
 				double price = set.getDouble("price");
 				boolean inStock = set.getBoolean("in_stock");
+				String path_symbols = set.getString("path_symbols");
 				// cream un obiect de tip User in care vom seta valorile de mai
 				// sus
 				Equipment equipment = new Equipment();
@@ -70,6 +72,7 @@ public class EquipmentDaoImpl implements EquipmentDao {
 				equipment.setTag(tag);
 				equipment.setPrice(price);
 				equipment.setInStock(inStock);
+				equipment.setPath_symbols(path_symbols);
 				
 				equipmentList.add(equipment);
 				// adaugam obiectul user in Lista
@@ -88,7 +91,7 @@ public class EquipmentDaoImpl implements EquipmentDao {
 	public boolean update(Equipment newEquipment, Long id) {
 		try {
 			conn = ConnectionUtil.getConnection();
-			String sql = "UPDATE `mihai`.`equipment_data` SET `name`=?, `description`=?, `tag`=?, `price`=?, `in_stock`=? WHERE `id`=?;";
+			String sql = "UPDATE `mihai`.`equipment_data` SET `name`=?, `description`=?, `tag`=?, `price`=?, `in_stock`=?, `path_symbols`=?  WHERE `id`=?;";
 			// obtin PreparedStatement de la connection
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, newEquipment.getName());
@@ -96,7 +99,9 @@ public class EquipmentDaoImpl implements EquipmentDao {
 			ps.setString(3, newEquipment.getTag());
 			ps.setDouble(4, newEquipment.getPrice());
 			ps.setBoolean(5, newEquipment.isInStock());
-			ps.setLong(6, id);
+			ps.setString(6, newEquipment.getPath_symbols());
+			ps.setLong(7, id);
+			
 			int affectedRows = ps.executeUpdate();
 			log.info(String.format("Update object, total affected rows: %d", affectedRows));
 			return true;

@@ -1,18 +1,29 @@
 package md.convertit.hydraulicsystem.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.awt.HeadlessException;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.net.PasswordAuthentication;
+import java.nio.charset.MalformedInputException;
+import java.sql.RowId;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListSelectionModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -28,13 +39,22 @@ import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.SoftBevelBorder;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
 import javax.swing.text.GapContent;
 
+import org.apache.poi.hssf.record.ColumnInfoRecord;
+import org.apache.poi.ss.format.CellGeneralFormatter;
+import org.apache.poi.ss.formula.functions.Column;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 
+import md.convertit.hydraulicsystem.dao.EquipmentDao;
 import md.convertit.hydraulicsystem.domain.Equipment;
 import md.convertit.hydraulicsystem.gui.model.SqlEquipmentTableModel;
 import md.convertit.hydraulicsystem.services.FileService;
@@ -58,7 +78,9 @@ public class TableFrame extends JFrame {
 	private JButton exportJsonButton;
 	private JButton exportXmlButton;
 	private JTable table;
-	private FileService fileService; 
+	private FileService fileService;
+
+	private Component ImageTest; 
 	
 	private static final long serialVersionUID = 1L;
 
@@ -89,11 +111,13 @@ public class TableFrame extends JFrame {
 //		// add bottom panel
 		addBottomPanel();
 		
-		addLefttPanel();
+	
 		
 		addMenuBar();
 //		// add action listeners
 		addActionListeners();
+		
+		addImage();
 //		// set visible
 	setVisible(true);
 
@@ -415,38 +439,96 @@ public class TableFrame extends JFrame {
 		}
 		return true;
 	}
-	private void addLefttPanel() {
-		JPanel panel1 = new JPanel();
-		// init FlowLayout on LEFT
+	private SqlEquipmentTableModel tableModel1 = new SqlEquipmentTableModel();;
+	public String pathDirectory() {
 		
-		FlowLayout layout1 = new FlowLayout(){
-
-			@Override
-			public Dimension preferredLayoutSize(Container target) {
-				Dimension dim = super.preferredLayoutSize(target);
-				dim.width = 130;
-				// TODO Auto-generated method stub
-				return dim;
-			}
+		Equipment equipment = tableModel1.getEquipment(2);
+		
+			// equipment.getPath_symbols();
+		
+		
+				
+				String pathInfo = equipment.getPath_symbols();
+				return pathInfo;
+		
 			
-		};
-		//layout1.setVgap(20);
-		
-		//FlowLayout layout = new FlowLayout(FlowLayout.RIGHT);
-		// set layout to panel
-		
-		//panel1.setLayout(layout1);
-		
-		
-		// set border
-		panel1.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
-panel1.add(new JButton("12111"));
-
-		// init buttons and add to panel
-		
-		
-		// add panel to mainPanel
-		mainPanel.add(panel1, BorderLayout.WEST);
-		
+			
+			
 	}
+	
+	private void addImage() {
+		
+		
+		 	
+			FlowLayout layout3 = new FlowLayout(){
+
+				@Override
+				public Dimension preferredLayoutSize(Container target) {
+					Dimension dim = super.preferredLayoutSize(target);
+					dim.width = 270;
+					
+					return dim;
+				}
+				
+			};
+			layout3.setVgap(20);
+			layout3.setHgap(20);
+			
+			
+		 	JPanel panel4 = new JPanel(isDoubleBuffered());
+//		 	SqlEquipmentTableModel tableModel1 = new SqlEquipmentTableModel();
+//			
+//			// Init table
+//			JTable table2 = new JTable(tableModel1);
+//		 	
+//		 	
+//		 	
+//		 
+	 	String pathInfo1 = pathDirectory();
+		 	
+		 	
+		 	
+		  String path1 = (pathInfo1);
+	        ImagePanel panel3 = new ImagePanel( new ImageIcon(path1).getImage());
+
+	        JFrame frame = new JFrame();
+	        frame.getContentPane().add(panel3);
+	        frame.pack();
+	        frame.setVisible(true);
+	        
+	       // ImageIcon icon = createImage("images/middle.jpeg");
+			//JTextField pathField = new JTextField(pathInfo1);
+			//panel4.add(pathField);
+			JLabel label1 = new JLabel("Image:",       
+			                    JLabel.RIGHT);
+			//Set the position of the text, relative to the icon:
+			label1.setVerticalTextPosition(JLabel.BOTTOM);
+			label1.setHorizontalTextPosition(JLabel.CENTER);
+
+			//JLabel label2 = new JLabel("Text-Only Label");
+			//JLabel label3 = new JLabel(icon);
+			
+			JButton addSymbol = new JButton("Add symbol");
+			panel4.add(addSymbol);
+			
+			JButton saveSymbol = new JButton("Save symbol");
+			panel4.add(saveSymbol);
+			panel4.add(new JLabel("Directory: "));
+			JTextField pathTextField = new JTextField(path1);
+			panel4.add(pathTextField);
+			
+			
+			panel4.add(label1);
+			//panel3.add(label2);
+			//panel3.add(label3);
+			panel4.setLayout(layout3);		
+			panel4.add(panel3);
+			panel3.setLayout(layout3);
+			panel3.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
+	        mainPanel.add(panel4, BorderLayout.WEST);
+	    }	
+	
+		//panel1.add(new JLabel(new ImageIcon(getClass().getClassLoader().getResource("E:/Lectii JAVA/image1.jpg"))));
+
+	
 }
