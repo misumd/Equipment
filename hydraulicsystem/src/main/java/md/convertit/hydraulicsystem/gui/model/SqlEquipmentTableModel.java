@@ -66,7 +66,15 @@ private static final long serialVersionUID = -6649486573625737660L;
 	public String getColumnName(int column) {
 		return columnNames[column];
 	}
-	
+	public void updateEquipment(Equipment equipment, Long id){
+		// add user to database
+		equipmentDao.update(equipment, id);
+		// update model user list
+		equipments = equipmentDao.findAll();
+		// fire an event to table that content of the model was changed
+		
+		fireTableDataChanged();
+	}
 	// method that will add a user to our table model.
 	public void addEquipment(Equipment equipment){
 		// add user to database
@@ -97,6 +105,6 @@ private static final long serialVersionUID = -6649486573625737660L;
 		return equipments;
 	}
 
-
+ 
 	
 }
