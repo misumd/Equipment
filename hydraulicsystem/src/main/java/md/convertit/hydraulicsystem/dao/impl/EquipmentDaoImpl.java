@@ -148,4 +148,7 @@ public class EquipmentDaoImpl implements EquipmentDao {
 		return 0;
 	}
 
+
+	
+
 }

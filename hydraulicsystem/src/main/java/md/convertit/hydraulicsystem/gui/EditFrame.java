@@ -1,12 +1,15 @@
 package md.convertit.hydraulicsystem.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -22,6 +25,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.SoftBevelBorder;
 
+import org.apache.poi.ss.formula.functions.Column;
 import org.junit.runners.model.TestTimedOutException;
 
 import md.convertit.hydraulicsystem.domain.Equipment;
@@ -35,6 +39,17 @@ public class EditFrame extends JFrame {
 	private JTextField tagTextField;
 	private JFormattedTextField priceTextField;
 	private JCheckBox stockCheckBox;
+	private JLabel nameLabel;
+	private JLabel descriptionLabel;
+	private JLabel tagLabel;
+	private JLabel priceLabel;
+	private JLabel isInStockLabel;
+	private JLabel idLabel;
+	private JTextField idTextField;
+	private int Id;
+	private int name;
+	private String Name;
+	private JButton showButton;
 	/**
 	 * 
 	 */
@@ -72,7 +87,7 @@ public class EditFrame extends JFrame {
 	private void addBottomPanel() {
 		JPanel panel5 = new JPanel();
 		FlowLayout layout = new FlowLayout(FlowLayout.CENTER);
-		layout.setHgap(70);
+		layout.setHgap(0);
 		panel5.setLayout(layout);
 		JButton addSymbol = new JButton("Add symbol");
 		panel5.add(addSymbol);
@@ -82,6 +97,9 @@ public class EditFrame extends JFrame {
 		
 		JButton deleteSymbol = new JButton("Delete symbol");
 		panel5.add(deleteSymbol);
+		
+		//showButton = new JButton("Open equipment");
+		//panel5.add(showButton);
 		
 		panel5.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
         editPanel.add(panel5, BorderLayout.SOUTH);
@@ -106,35 +124,46 @@ public class EditFrame extends JFrame {
 		// set layout to panel
 		panel.setLayout(layout);
 		
-		//panel.add(new JLabel("Equipments: "));
-		//fileCombBox = new JComboBox<>();
-		//panel.add(new JComboBox<>());
-
+		
+		
+		
+		
+		idLabel = new JLabel("ID: ");
+		panel.add(idLabel);
+		idTextField = new JTextField(10);
+		panel.add(idTextField);
 		// add label, init 'userNameTextField' and add to panel
-		JLabel nameLabel = new JLabel("Name: ");
+		
+		nameLabel = new JLabel("Name: ");
 		panel.add(nameLabel);
-		nameTextField = new JTextField(10);
+		String Name1 = getName();
+		nameTextField = new JTextField(Name1);
 		panel.add(nameTextField);
 		
 		
 
 		// add label, init 'passwordField' and add to panel
-		panel.add(new JLabel("Description: "));
+		descriptionLabel= new JLabel("Description: ");
+		panel.add(descriptionLabel);
 		descriptionTextField = new JTextField(10);
 		panel.add(descriptionTextField);
 
 		// add label, init 'emailTextField' and add to panel
-		panel.add(new JLabel("Tag: "));
+		tagLabel = new JLabel("Tag: ");
+		panel.add(tagLabel);
 		tagTextField = new JTextField(10);
 		panel.add(tagTextField);
 		
-		panel.add(new JLabel("Price: "));
+		priceLabel = new JLabel("Price: ");
+		panel.add(priceLabel);
+		
 		priceTextField = new JFormattedTextField(new Float(0.0));
 		priceTextField.setMinimumSize(priceTextField.getPreferredSize());
 		priceTextField.setColumns(10);
 		panel.add(priceTextField);
 		
-		panel.add(new JLabel("Is_inStock: "));
+		isInStockLabel = new JLabel("Is_inStock: ");
+		panel.add(isInStockLabel);
 		stockCheckBox = new JCheckBox();
 		panel.add(stockCheckBox);
 
@@ -149,31 +178,28 @@ public class EditFrame extends JFrame {
 		editPanel.add(panel, BorderLayout.WEST);
 		
 	}
-
-	private void addActionListeners() {
-
-		editButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				// Obtain selected user row
-				int row = table.getSelectedRow();
-				// obtain user from table model
-				if (row != -1) {
-					SqlEquipmentTableModel tableModel7 = (SqlEquipmentTableModel) table.getModel();
-					// get user by row
-					Equipment equipment = tableModel7.getEquipment(row);
-					JOptionPane.showMessageDialog(EditFrame.this, equipment, "Selected user is:",
-							JOptionPane.INFORMATION_MESSAGE);
-				} else {
-					JOptionPane.showMessageDialog(EditFrame.this, "Please select a row from table!", "No selected row",
-							JOptionPane.WARNING_MESSAGE);
-				}
-
-			}
-		});
-
+ 
+public String getName() {
+	
+	
+	 
+	SqlEquipmentTableModel tableModel1 = new SqlEquipmentTableModel();
+	
+		int row1 = tableModel1.getEquipments().get(Id).getId().intValue();
+		Equipment equipment = tableModel1.getEquipment(row1);
+		
+			 //equipment.getPath_symbols();
+		
+		
+				
+				Name = equipment.getName();
+				return Name;
+		
+			
+			
+			
 	}
-
-}
+	
+	private void addActionListeners() {
+		
+	}}

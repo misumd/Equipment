@@ -14,6 +14,7 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.PasswordAuthentication;
+import java.nio.channels.SelectableChannel;
 import java.nio.charset.MalformedInputException;
 import java.sql.RowId;
 import java.text.NumberFormat;
@@ -235,34 +236,15 @@ public class TableFrame extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				EditFrame editFrame = new EditFrame();
-				editFrame.start();
+				selectEquipment();
+			
 				
 			}
 		});
 		
-//		showButton.addActionListener(new ActionListener() {
-//			
-//		
-//			public void actionPerformed(ActionEvent e) {
-//				// Obtain selected user row
-//				int row = table.getSelectedRow();
-//				// obtain user from table model
-//				if(row != -1){
-//					SqlUserTableModel tableModel = (SqlUserTableModel) table.getModel();
-//					// get user by row
-//					User user = tableModel.getUser(row);
-//					JOptionPane.showMessageDialog(TableFrame.this, 
-//							user, "Selected user is:", 
-//							JOptionPane.INFORMATION_MESSAGE); 
-//				} else {
-//					JOptionPane.showMessageDialog(TableFrame.this, 
-//							"Please select a row from table!", "No selected row", 
-//							JOptionPane.WARNING_MESSAGE); 
-//				}
-//			}
-//		});
-//		
+		
+		
+
 		
 		exportJsonButton.addActionListener(new ActionListener() {
 			
@@ -334,7 +316,31 @@ public class TableFrame extends JFrame {
 			}
 		}
 
+		private void selectEquipment(){
+			// obtain table selected row
+			int row = table.getSelectedRow();
+			// check if row value is different from -1  (no row selected)
+			if(row != -1){
+				// extract our UserTableModel from table
+				SqlEquipmentTableModel tableModel = (SqlEquipmentTableModel) table.getModel();
+				// obtain user from table model from selected row
+				Equipment equipment = tableModel.getEquipment(row);
+				// delete a user from table model
 
+				EditFrame editFrame = new EditFrame();
+				editFrame.start();
+				JOptionPane.showMessageDialog(TableFrame.this, equipment, "Selected user is:",
+						JOptionPane.INFORMATION_MESSAGE);
+			}	
+			
+				else {
+		
+				JOptionPane.showMessageDialog(TableFrame.this, 
+						"Please select a row from table!", "No selected row", 
+						JOptionPane.WARNING_MESSAGE); 
+			}}
+	
+		
 	private void addBottomPanel() {
 		JPanel panel = new JPanel();
 		// init FlowLayout on LEFT
@@ -345,7 +351,7 @@ public class TableFrame extends JFrame {
 			public Dimension preferredLayoutSize(Container target) {
 				Dimension dim = super.preferredLayoutSize(target);
 				dim.width = 130;
-				// TODO Auto-generated method stub
+				 
 				return dim;
 			}
 			
@@ -451,7 +457,7 @@ public class TableFrame extends JFrame {
 		}
 		return true;
 	}
-	private SqlEquipmentTableModel tableModel1 = new SqlEquipmentTableModel();;
+	private SqlEquipmentTableModel tableModel1 = new SqlEquipmentTableModel();
 	public String pathDirectory() {
 		
 		Equipment equipment = tableModel1.getEquipment(0);
@@ -488,14 +494,7 @@ public class TableFrame extends JFrame {
 			
 			
 		 	JPanel panel4 = new JPanel(isDoubleBuffered());
-//		 	SqlEquipmentTableModel tableModel1 = new SqlEquipmentTableModel();
-//			
-//			// Init table
-//			JTable table2 = new JTable(tableModel1);
-//		 	
-//		 	
-//		 	
-//		 
+	
 	 	String pathInfo1 = pathDirectory();
 		 	
 		 	
