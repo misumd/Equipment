@@ -68,9 +68,10 @@ public class EditFrame extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public EditFrame(Equipment equipment) throws HeadlessException {
+	public EditFrame(Equipment equipment, JTable table) throws HeadlessException {
 		super();
 		this.equipment = equipment;
+		this.table = table;
 		setTitle("Edit Equipment");
 		setSize(600, 500);
 		setLocationRelativeTo(null);
@@ -85,18 +86,19 @@ public class EditFrame extends JFrame {
 	}
 
 	public void start() {
-		addActionListeners();
-		setVisible(true);
+		
 		addLeftPanel();
 		addBottomPanel();
 		addRightPanel();
 		addCenterPanel();
+		addActionListeners();
+		setVisible(true);
 	}
 
 	private void addCenterPanel() {
 		
 		ImageIcon myImage = new ImageIcon(equipment.getPath_symbols());
-        ImagePanel panel5 = new ImagePanel(myImage.getImage());
+        ImagePanel panel5 = new ImagePanel(myImage);
         editPanel.add(panel5, BorderLayout.CENTER);
 	}
 
@@ -224,7 +226,8 @@ public class EditFrame extends JFrame {
 		equipment.setInStock(stockCheckBox.isSelected());
 		
 		//
-
+		//System.out.println(table);
+		
 		// add user to tableModel
 		SqlEquipmentTableModel tableModel4 = (SqlEquipmentTableModel) table.getModel();
 		
@@ -243,14 +246,14 @@ public class EditFrame extends JFrame {
 	//}
 	private void addActionListeners() {
 		
-//		saveSymbol.addActionListener(new ActionListener() {
-//			
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				saveSymbol();
-//				
-//			}
-//		});
+		saveSymbol.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				saveSymbol();
+				setVisible(false);
+			}
+		});
 
 	}
 }

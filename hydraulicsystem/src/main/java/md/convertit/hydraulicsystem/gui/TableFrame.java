@@ -5,29 +5,16 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Graphics;
 import java.awt.HeadlessException;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.net.PasswordAuthentication;
-import java.nio.channels.SelectableChannel;
-import java.nio.charset.MalformedInputException;
-import java.sql.RowId;
-import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.imageio.ImageIO;
-import javax.swing.BoxLayout;
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -36,26 +23,14 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.SoftBevelBorder;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
-import javax.swing.table.TableModel;
-import javax.swing.text.GapContent;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
-import org.apache.poi.hssf.record.ColumnInfoRecord;
-import org.apache.poi.ss.format.CellGeneralFormatter;
-import org.apache.poi.ss.formula.functions.Column;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.VerticalAlignment;
-
-import md.convertit.hydraulicsystem.dao.EquipmentDao;
 import md.convertit.hydraulicsystem.domain.Equipment;
 import md.convertit.hydraulicsystem.gui.model.SqlEquipmentTableModel;
 import md.convertit.hydraulicsystem.services.FileService;
@@ -80,9 +55,10 @@ public class TableFrame extends JFrame {
 	private JButton exportXmlButton;
 	private JTable table;
 	private FileService fileService;
-	public ImageIcon myImage;
+	private ImagePanel imagePanel;
 
 	private Component ImageTest;
+	private JTextField pathTextField;
 
 	private static final long serialVersionUID = 1L;
 
@@ -115,8 +91,10 @@ public class TableFrame extends JFrame {
 		addMenuBar();
 		// // add action listeners
 		addActionListeners();
-
+		imagePanel = new ImagePanel(new ImageIcon("D:/mar.png"));
 		addImage();
+		//table.getSelectionModel().setSelectionInterval(0, 0);
+		//addImage();
 		// // set visible
 		setVisible(true);
 
@@ -208,6 +186,17 @@ public class TableFrame extends JFrame {
 	}
 
 	private void addActionListeners() {
+		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				String pathToImage = getPathDirectory();
+				imagePanel.setImageIcon(new ImageIcon(pathToImage));
+				pathTextField.setText(pathToImage);
+				
+			}
+		});
+
 		saveButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
@@ -305,7 +294,7 @@ public class TableFrame extends JFrame {
 			Equipment equipment = tableModel.getEquipment(row);
 			// delete a user from table model
 
-			EditFrame editFrame = new EditFrame(equipment);
+			EditFrame editFrame = new EditFrame(equipment,table);
 			editFrame.start();
 			// JOptionPane.showMessageDialog(TableFrame.this, equipment,
 			// "Selected user is:",
@@ -434,15 +423,25 @@ public class TableFrame extends JFrame {
 		return true;
 	}
 
-	private SqlEquipmentTableModel tableModel1 = new SqlEquipmentTableModel();
+	//private SqlEquipmentTableModel tableModel1 = new SqlEquipmentTableModel();
 
-	public String pathDirectory() {
+	public String getPathDirectory() {
 
-		Equipment equipment = tableModel1.getEquipment(0);
-
-		// equipment.getPath_symbols();
-
-		String pathInfo = equipment.getPath_symbols();
+		//Equipment equipment = tableModel1.getEquipment(0);
+		String pathInfo;
+		int row = table.getSelectedRow();
+		// check if row value is different from -1 (no row selected)
+		if (row == -1) {
+			pathInfo = "D:/mar.png";
+	
+		}else{
+			// extract our UserTableModel from table
+			SqlEquipmentTableModel tableModel = (SqlEquipmentTableModel) table.getModel();
+			// obtain user from table model from selected row
+			Equipment equipment = tableModel.getEquipment(row);
+			pathInfo = equipment.getPath_symbols();
+		}
+			
 		return pathInfo;
 
 	}
@@ -450,6 +449,7 @@ public class TableFrame extends JFrame {
 	private void addImage() {
 
 		FlowLayout layout3 = new FlowLayout() {
+			private static final long serialVersionUID = 1L;
 
 			@Override
 			public Dimension preferredLayoutSize(Container target) {
@@ -463,32 +463,32 @@ public class TableFrame extends JFrame {
 		layout3.setVgap(20);
 		layout3.setHgap(20);
 
-		JPanel panel4 = new JPanel(isDoubleBuffered());
-
-		String pathInfo1 = pathDirectory();
-
-		String path1 = (pathInfo1);
-		myImage = new ImageIcon(path1);
-		ImagePanel panel3 = new ImagePanel(myImage.getImage());
-
+		String pathToImage = getPathDirectory();
+		JPanel imageMainPanel = new JPanel(new BorderLayout());
+		
+		// CREATE LABEL
 		JLabel label1 = new JLabel("Image:", JLabel.RIGHT);
-		// Set the position of the text, relative to the icon:
 		label1.setVerticalTextPosition(JLabel.BOTTOM);
 		label1.setHorizontalTextPosition(JLabel.CENTER);
-
 		
-		panel4.add(new JLabel("Directory: "));
-		JTextField pathTextField = new JTextField(path1);
-		panel4.add(pathTextField);
-
-		panel4.add(label1);
 		
-		panel4.setLayout(layout3);
-		panel4.add(panel3);
-		panel3.setLayout(layout3);
-		panel3.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
-		mainPanel.add(panel4, BorderLayout.WEST);
-	}
-
-	
+		// CREATE DIRECTORY TEXTFIELD
+		imageMainPanel.add(new JLabel("Directory: "));
+		pathTextField = new JTextField(pathToImage);
+		
+		
+		// COMPONENTS PANEL
+		JPanel componentsPanel = new JPanel(layout3);
+		componentsPanel.add(label1);
+		componentsPanel.add(pathTextField);
+		
+		// CREATE IMAGE PANEL
+		imagePanel.setImageIcon(new ImageIcon(pathToImage));
+		imagePanel.setLayout(layout3);
+		imagePanel.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
+		
+		imageMainPanel.add(componentsPanel, BorderLayout.NORTH);
+		imageMainPanel.add(imagePanel, BorderLayout.CENTER);
+		mainPanel.add(imageMainPanel, BorderLayout.WEST);
+	}	
 }
